@@ -1,0 +1,17 @@
+version: '3.2'
+services:
+  udppoc:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./
+    ports:
+      - 6001:6001/udp
+    environment:
+      PORT: 6001
+    networks:
+      - udp-poc
+
+
+networks:
+  udp-poc:
+    driver: bridge
