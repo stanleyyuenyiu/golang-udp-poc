@@ -13,7 +13,7 @@ var (
 	port = flag.Int("port", 6001, "The server port")
   addr = flag.String("addr", "255.255.255.255", "The server addr")
   message = flag.String("message", "Hello", "The sender message")
-  iter = flag.Int("iter", 1, "Message repeat counter")
+  iter = flag.Int("k", 1, "Message repeat counter")
 )
 
 func main() {
@@ -32,7 +32,7 @@ func main() {
   time.Sleep(1 * time.Second)
 
   count := 0
-  
+
 	for count <= *iter {
     msg := udp.BuildMsg("127.0.0.1", fmt.Sprintf("MSGID-%v", count), "counter", *message)
     sendCh <- *msg
