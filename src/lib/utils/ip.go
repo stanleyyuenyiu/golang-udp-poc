@@ -1,11 +1,11 @@
 package utils
 
 import (
-	"os"
 	"net"
+	"os"
 )
 
-func GetLocalIP() (string) {
+func GetLocalIP() string {
 	var localIP string
 	addrs, err := net.InterfaceAddrs()
 	if err != nil {

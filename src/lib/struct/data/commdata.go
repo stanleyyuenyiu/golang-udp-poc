@@ -1,20 +1,20 @@
 package data
 
 import (
-	"fmt"
-	"net"
 	"encoding/json"
+	"fmt"
 	"log"
+	"net"
 )
 
 type CommData struct {
-	ReplyTo net.UDPAddr 
+	ReplyTo    net.UDPAddr
 	Identifier string
-	SenderIP	string
-	ReceiverIP	string
-	MsgID string
-	DataType string
-	DataValue any
+	SenderIP   string
+	ReceiverIP string
+	MsgID      string
+	DataType   string
+	DataValue  any
 }
 
 func (data *CommData) PrintData() {
@@ -27,8 +27,7 @@ func (data *CommData) PrintData() {
 	fmt.Println("DataValue:", data.DataValue)
 }
 
-
-func (data *CommData) Marshal() ([]byte) {
+func (data *CommData) Marshal() []byte {
 	convMsg, err := json.Marshal(*data)
 	if err != nil {
 		log.Printf("Convert json error: %v", err.Error())
@@ -37,9 +36,8 @@ func (data *CommData) Marshal() ([]byte) {
 	return convMsg
 }
 
-
-func (data *CommData) Unmarshal(buffer []byte)  (*CommData)  {
-	err := json.Unmarshal(buffer, data);
+func (data *CommData) Unmarshal(buffer []byte) *CommData {
+	err := json.Unmarshal(buffer, data)
 	if err != nil {
 		log.Printf("Convert json error: %v", err.Error())
 	}

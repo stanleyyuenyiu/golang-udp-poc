@@ -7,9 +7,9 @@ import (
 
 type ConnData struct {
 	SenderIP string
-	MsgID string
+	MsgID    string
 	SendTime time.Time
-	Status string
+	Status   string
 }
 
 func (data *ConnData) PrintData() {
