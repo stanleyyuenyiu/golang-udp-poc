@@ -67,7 +67,7 @@ func broadcast(commSend chan c.CommData, commReceive chan c.CommData, targetAddr
 
 	ch := make(chan struct{})
 
-	go writeFromCn(conn, boardcastAddr, commSend)
+	go writeTo(conn, boardcastAddr, commSend)
 
 	go read(conn, commReceive)
 
@@ -89,7 +89,7 @@ func listen(commReceive chan c.CommData, commReply chan c.CommData, port int, re
 
 	go readAndReply(conn, commReceive)
 
-	go reply(conn, commReply)
+	go replyTo(conn, commReply)
 
 	<-ch
 }
@@ -143,14 +143,14 @@ func messageFowarder(
 	}
 }
 
-func writeFromCn(conn *net.UDPConn, to *net.UDPAddr, ch chan c.CommData) {
+func writeTo(conn *net.UDPConn, to *net.UDPAddr, ch chan c.CommData) {
 	for {
 		msg := <-ch
 		conn.WriteToUDP(msg.Marshal(), to)
 	}
 }
 
-func reply(conn *net.UDPConn, ch chan c.CommData) {
+func replyTo(conn *net.UDPConn, ch chan c.CommData) {
 	for {
 		msg := <-ch
 		conn.WriteToUDP(msg.Marshal(), &msg.ReplyTo)
